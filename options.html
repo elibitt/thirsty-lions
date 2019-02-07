@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Thirsty Lions Options Page</title>
+	<link rel="stylesheet" href="options.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="options.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+</head>
+<body onLoad="buildHtmlTable('#optionsTable')">
+
+<div class="header">
+	<h2 class="header-title">Anti-Fingerprinting Options</h2>
+</div>
+
+<div class="panel">
+	<h4>Enter Desired websites and select User Agent String</h4>
+
+	<div class="dynamic-table" >
+
+		  <table id="optionsTable" class="tg" >
+		  </table>
+
+	</div>
+	<div class="add-row-button">
+		<button id="insert-more"><i class="fas fa-plus-circle"></i> Add another entry</button>
+	</div>
+
+
+	
+	<div id="status"></div>
+	<button id="save"><i class="fas fa-save"></i> Save</button>
+</div>
+<script src="options.js"></script>
+</body>
+</html>

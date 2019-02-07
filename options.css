@@ -1,0 +1,148 @@
+body{
+	margin:0;
+	background: rgb(248, 249, 250);
+	font-family:sans-serif;
+}
+.header{
+	height: 50px;
+	background-color:#62A8D1;
+}
+
+.header-title{
+	color:white;
+	text-align:center;
+	padding-top:10px;
+}
+
+.panel{
+	width: 750px;
+	margin: auto;
+	background: #fff;
+	margin-top:10px;
+	padding:20px;
+	box-shadow: rgba(60, 64, 67, .3) 0 1px 2px 0,
+                  rgba(60, 64, 67, .15) 0 1px 3px 1px;
+}
+.tg{
+	border-collapse:collapse;
+	border-spacing:0;
+	width:80%;
+	margin: auto;
+	text-align: center;
+}
+.tg td{
+	font-family:Arial, sans-serif;
+	font-size:14px;
+	padding:10px 5px 10px 20px;
+	/*border-style:solid;*/
+	/*border-width:1px;*/
+	overflow:hidden;
+	word-break:normal;
+	/*border-color:black;*/
+	border-bottom: 1px solid #ddd;
+
+}
+.tg th{
+	font-family:Arial, sans-serif;
+	font-size:14px;
+	font-weight:normal;
+	padding:10px 20px;
+	/*border-style:solid;*/
+	/*border-width:1px;*/
+	overflow:hidden;
+	word-break:normal;
+	/*border-color:black;*/
+	border-bottom: 1px solid #ddd;
+	background-color: #62A8D1;
+	color:white;
+}
+.tg .tg-0lax{
+	text-align:left;
+	vertical-align:top;
+	/*padding: 10px;*/
+}
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+tr:hover {background-color: #ddd;}
+
+
+@media screen and (max-width: 767px) {
+	.tg {width: auto !important;}
+	.tg col {width: auto !important;}
+	.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}
+}
+
+
+
+#save{
+	margin-top:20px;
+}
+
+
+.add-row-button{
+	text-align: center;
+	margin: 10px;
+}
+
+
+.delRow{
+	color: red;
+	transition: all .8s ease-in-out;
+	-webkit-transition: all .8s ease-in-out;
+    -moz-transition: all .8s ease-in-out;
+    -o-transition: all .8s ease-in-out;
+	
+	overflow: hidden;
+    white-space:nowrap;
+    border-radius: 25px;
+    display: inline-block;
+    float: left;
+
+}
+
+.delRow:hover{
+	cursor: pointer;
+	text-shadow: 0px 0px 9px #fff;
+	
+	
+}
+
+.delTag {
+	transition: all .8s ease-in-out;
+	-webkit-transition: all .8s ease-in-out;
+    -moz-transition: all .8s ease-in-out;
+    -o-transition: all .8s ease-in-out;
+
+	opacity: 0;
+    max-width: 0;
+    display: block;
+    float:right;
+    text-decoration: none;
+}
+
+.delRow:hover .delTag {
+	opacity: 1;
+    max-width: 250px;
+}
+.fa-plus-circle{
+	color:green;
+}
+
+#insert-more, #save{
+	padding: 10px;
+	font-size: 13px;
+
+}
+
+
+#insert-more:hover, #save:hover {
+	box-shadow: 2px 2px 5px #888;
+	cursor: pointer;
+}
+
+
+
+
+
+
