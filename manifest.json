@@ -3,6 +3,7 @@
   "description": "Change user agent string of a hard-coded list of websites into a hard-coded alternative",
   "version": "1.0",
   "manifest_version": 2,
+  "options_page": "options.html",
   "permissions": [
     "webRequest",
     "storage",
