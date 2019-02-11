@@ -5,8 +5,11 @@
 
 // Retrieve URL list from storage
 // These are the websites that the extension will act on
-var url_list = ["https://*.whatismybrowser.com/*"];
+var init_settings = {"google.com":['Mozilla','100']};
+var init_domainList = ["https://*google.com/*"];
 
+var settings = {};
+var domainList = [];
 
 // This listener will act on the websites specified in storage (see "urls" at the bottom)
 // It will work before the headers are sent
@@ -24,6 +27,16 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
         }
 		return {requestHeaders: details.requestHeaders};
     },
-    {urls: url_list },
+    {urls: domainList },
 	["blocking", "requestHeaders"]
 );
+
+
+ chrome.runtime.onInstalled.addListener(function() {
+    chrome.storage.sync.set({settings: init_settings}, function() {
+      console.log("Settings data initialized");
+    });
+    chrome.storage.sync.set({domainList: init_domainList}, function() {
+      console.log("Domain list data initialized");
+    });
+  });

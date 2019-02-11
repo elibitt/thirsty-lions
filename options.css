@@ -125,24 +125,78 @@ tr:hover {background-color: #ddd;}
 	opacity: 1;
     max-width: 250px;
 }
-.fa-plus-circle{
-	color:green;
+
+
+#insert-more{
+	color: #888 !important;
+	border: 2px solid #888;
+
+
+}
+#insert-more:hover{
+		background:#888;
+		color:white !important;
+	}
+
+
+
+button {
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 170px;
+  border-radius:40px;
+  background: #fff;
+  border: 2px solid #1ECD97;
+  color:#1ECD97;
+  letter-spacing:1px;
+  text-shadow:0;
+  font-size: 12px;
+  font-weight:bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+button:hover{
+  
+    color:white;
+    background: #1ECD97;
+}
+button:active{
+    //letter-spacing: 2px;
+    letter-spacing: 2px ;
+  }
+
+.onclic {
+  width: 40px;
+  border-color:#bbb;
+  border-width:5px;
+  font-size:0;
+  border-left-color:#1ECD97;
+  animation: rotating .5s .5s linear infinite;
+
+  &:after {
+    content:"";
+  }
+  &:hover {
+    color:#1ECD97;
+    background: white;
+  }
+}
+.validate {
+  font-size:13px;
+  color: white;
+  background: #1ECD97;
+  &:after {
+    font-family:'FontAwesome';
+    content:"\f00c";
+  }
 }
 
-#insert-more, #save{
-	padding: 10px;
-	font-size: 13px;
-
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
-
-#insert-more:hover, #save:hover {
-	box-shadow: 2px 2px 5px #888;
-	cursor: pointer;
-}
-
-
-
-
-
-
