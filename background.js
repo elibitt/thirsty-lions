@@ -1,7 +1,6 @@
 
 'use strict';
 
-// Simple extension to alert user agent string
 
 // Retrieve URL list from storage
 // These are the websites that the extension will act on

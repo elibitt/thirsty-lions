@@ -1,8 +1,4 @@
-var olddomainList = [
-  { "":"<div class='delRow'><i class='fas fa-minus-circle'></i> <span class='delTag'>&nbspDelete</span></div>","Domain": "<input name='domainInput' type='text' value='google.com'></input>", "User-Agent String": "<select name='UASdropdown'></select>", "Probability": "<input name='probInput' type='number' value='100' min='0' max='100'></input>%" },
-  { "":"<div class='delRow'><i class='fas fa-minus-circle'></i> <span class='delTag'>&nbspDelete</span></div>","Domain": "<input name='domainInput' type='text' value='yahoo.com'></input>", "User-Agent String": "<select name='UASdropdown'></select>", "Probability": "<input name='probInput' type='number' value='100' min='0' max='100'></input>%" },
-  { "":"<div class='delRow'><i class='fas fa-minus-circle'></i> <span class='delTag'>&nbspDelete</span></div>","Domain": "<input name='domainInput' type='text' value='facebook.com'></input>", "User-Agent String": "<select name='UASdropdown'></select>", "Probability": "<input name='probInput' type='number' value='100' min='0' max='100'></input>%" }
-];
+'use strict';
 
 var settings = {};
 var domainList = [];
@@ -130,10 +126,11 @@ function saveSettings(){
   var rowLength = oTable.rows.length;
 
   //loops through rows
-  for (i = 1; i < rowLength; i++){
+  for (var i = 1; i < rowLength; i++){
 
     //gets cells of current row  
-     domainList_new.push(oTable.rows[i].cells[1].children[0].value);
+    var newDomain = oTable.rows[i].cells[1].children[0].value;
+     domainList_new.push("https://*"+newDomain+"/*");
 
      settigns_new[oTable.rows[i].cells[1].children[0].value] = [oTable.rows[i].cells[2].children[0].value,oTable.rows[i].cells[3].children[0].value];
      //console.log(oTable.rows[i].cells[1].children[0].value);
