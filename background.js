@@ -2,16 +2,15 @@
 'use strict';
 
 
-// Retrieve URL list from storage
-// These are the websites that the extension will act on
+// Initial settings, set when extension is first downloaded
 var init_settings = {"google.com":['Firefox','100']};
 var init_domainList = ["*://*.google.com/*"];
 
 
-var bgsettings = {};
+var bgsettings = {}; 
 var bgdomainList = [];
 
-
+// list of User Agent Strings
 var UAS = {
             iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
             Firefox: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) Gecko/20100101 Firefox/42.0",
@@ -23,18 +22,19 @@ function changeUAS(details) {
     // If the website is specified in the extension, get the following information from storage:
     // 1) New user agent string
     // 2) Associated probability
-    //var new_uas = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"; // New user agent string 
+
+    // Checks if domain of web request is specified in extension settings
     for (var i = 0; i < details.requestHeaders.length; ++i) {
         if (details.requestHeaders[i].name === 'User-Agent') {
-          var rootDomain = extractRootDomain(details.url);
-          console.log(parseInt(bgsettings[rootDomain][1])/100);
-          if (Math.random() <= parseInt(bgsettings[rootDomain][1])/100){
-            details.requestHeaders[i].value = UAS[bgsettings[rootDomain][0]];
-            console.log("Changing UAS: "+details.url);
-            console.log("NEW UAS: "+UAS[bgsettings[rootDomain][0]]);
+          var rootDomain = extractRootDomain(details.url); // changes current URL into just the domain, to lookup in settings
+          //console.log(parseInt(bgsettings[rootDomain][1])/100);
+          if (Math.random() <= parseInt(bgsettings[rootDomain][1])/100){  // Determines if UAS will be changed based on prob.
+            details.requestHeaders[i].value = UAS[bgsettings[rootDomain][0]];  // Change UAS
+            console.log("Changing UAS: "+rootDomain);
+            //console.log("NEW UAS: "+UAS[bgsettings[rootDomain][0]]);
           }
           else{
-            console.log("probability: not changing UAS");
+            console.log("Probability: not changing UAS");
           }
           break;
         }
@@ -88,7 +88,7 @@ function extractRootDomain(url) {
 // );
 //Update data when it is changed, also refresh listener
 
-// When extension is first installed, add initial data
+// When extension is first installed, add initial data and startup listener
 chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set({settings: init_settings}, function() {
       console.log("Settings data initialized");
@@ -100,11 +100,9 @@ chrome.runtime.onInstalled.addListener(function() {
       chrome.webRequest.onBeforeSendHeaders.addListener(changeUAS, {urls: bgdomainList, types: ["main_frame"]},["blocking", "requestHeaders"]);
       console.log("Added new listener, url list: "+bgdomainList.length);
     });
-
-    
   });
 
-
+// Refreshes the listener each time the settings are changed
 chrome.storage.onChanged.addListener(function(changes, settings) {
     chrome.storage.sync.get("settings", function (obj) {
       bgsettings = obj["settings"];
@@ -117,7 +115,6 @@ chrome.storage.onChanged.addListener(function(changes, settings) {
         console.log("Removed old listener");
       }
       chrome.webRequest.onBeforeSendHeaders.addListener(changeUAS, {urls: bgdomainList, types: ["main_frame"]},["blocking", "requestHeaders"]);
-      console.log("Added new listener, url list: "+bgdomainList.length);
     });
   console.log("changes propogated");
   //refresh listener
