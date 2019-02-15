@@ -2,7 +2,8 @@
 
 var settings = {};
 var domainList = [];
-var UASoptions = ["iOS","Chrome","Safari","Mozilla"];
+var UASoptions = ["iOS","Chrome","Safari","Firefox"];
+var unsaved = false;
 
 
 //Check if settings data exists, initialize it
@@ -114,7 +115,7 @@ window.onload = initPage();
 
 
 function saveSettings(){
-  console.log("In Save settings");
+  unsaved = false;
 
   $( "#save" ).addClass( "onclic");
 
@@ -130,7 +131,8 @@ function saveSettings(){
 
     //gets cells of current row  
     var newDomain = oTable.rows[i].cells[1].children[0].value;
-     domainList_new.push("https://*"+newDomain+"/*");
+     //domainList_new.push("https://*"+newDomain+"/*");
+     domainList_new.push("*://*."+newDomain+"/*");
 
      settigns_new[oTable.rows[i].cells[1].children[0].value] = [oTable.rows[i].cells[2].children[0].value,oTable.rows[i].cells[3].children[0].value];
      //console.log(oTable.rows[i].cells[1].children[0].value);
@@ -150,13 +152,13 @@ function saveSettings(){
       $( "#save" ).addClass( "validate");
       document.getElementById("save").innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
 
-    }, 1500 );
+    }, 1250 );
         
     setTimeout(function() {
       $( "#save" ).removeClass( "validate" );
       document.getElementById("save").innerHTML = '<i class="fas fa-save"></i> Save';
 
-    }, 3050 );
+    }, 2250 );
 
 }
 
@@ -165,7 +167,7 @@ function saveSettings(){
  $("#insert-more").click(function () {
      $("#optionsTable").each(function () {
          var tds = '<tr class="new-row">';
-          tds += '<td><div class="delRow"><i class="fas fa-minus-circle"></i> <span class="delTag">&nbspDelete</span></div></td><td><input name="domainInput" type="text"></td><td><select name="UASdropdown"><option value="iOS">iOS</option><option value="Chrome">Chrome</option><option value="Safari">Safari</option><option value="Mozilla">Mozilla</option></select></td><td><input name="probInput" type="number" value="100" min="0" max="100"></input>%</td>'
+          tds += '<td><div class="delRow"><i class="fas fa-minus-circle"></i> <span class="delTag">&nbspDelete</span></div></td><td><input name="domainInput" type="text"></td><td><select name="UASdropdown"><option value="iOS">iOS</option><option value="Chrome">Chrome</option><option value="Safari">Safari</option><option value="Firefox">Firefox</option></select></td><td><input name="probInput" type="number" value="100" min="0" max="100"></input>%</td>'
         tds += '</tr>';
         if ($('tbody', this).length > 0) {
             $('tbody', this).append(tds).children(':last').hide()
@@ -176,6 +178,7 @@ function saveSettings(){
             $(this).append(tds);
         }
     });
+     unsaved = true;
 });
 
 
@@ -200,4 +203,13 @@ $("#optionsTable").on('click', '.delRow', function () {
 
 //Save new options
 document.getElementById("save").onclick = saveSettings;
+
+//alert user if unsaved changes exist
+function unloadPage(){ 
+    if(unsaved){
+        return "You have unsaved changes. Are you sure you want to leave this page?";
+    }
+}
+
+window.onbeforeunload = unloadPage;
 
