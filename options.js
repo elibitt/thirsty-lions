@@ -28,6 +28,8 @@ function initPage(){
         console.log("No domainList data found");
     }
   });
+  var d = new Date();
+  document.getElementById('curyear').innerHTML = d.getFullYear();
   
   
 }
@@ -48,7 +50,7 @@ function buildHtmlTable(selector) {
     // Add delete column
     newRow[""] = "<div class='delRow'><i class='fas fa-minus-circle'></i> <span class='delTag'>&nbspDelete</span></div>";
     //Add domain column
-    newRow["Domain"] = "<input name='domainInput' type='text' value='"+domain+"'></input>";
+    newRow["Domain"] = "<input name='domainInput' class='domainInput' type='text' placeholder='google.com' value='"+domain+"'></input>";
     //Add UAS column
     var optionsAsString = "";
     for(var i = 0; i < UASoptions.length; i++) {
@@ -58,7 +60,7 @@ function buildHtmlTable(selector) {
     }
     newRow["User-Agent String"] = "<select name='UASdropdown'>"+optionsAsString+"</select>";
     // Add probability column
-    newRow["Probability"] = "<input name='probInput' type='number' value='"+settings[domain][1]+"' min='0' max='100'></input>%";
+    newRow["Probability"] = "<input name='probInput' class='probInput' type='number' value='"+settings[domain][1]+"' min='0' max='100'></input>%";
 
     tableData.push(newRow);
   }
@@ -82,7 +84,7 @@ function buildHtmlTable(selector) {
     $(selector).append(row$);
   }
   // Adds the drop down box to each table entry
-  
+  setupListeners();
 }
 
 
@@ -127,17 +129,25 @@ function saveSettings(){
   var rowLength = oTable.rows.length;
 
   //loops through rows
+
+  //first validate all entries in table, then save all entries to chrome storage
   for (var i = 1; i < rowLength; i++){
 
     //gets cells of current row  
     var newDomain = oTable.rows[i].cells[1].children[0].value;
-     //domainList_new.push("https://*"+newDomain+"/*");
+    var newProb = oTable.rows[i].cells[3].children[0].value;
+
+    //Validation of domain ( should be of form "google.com" - not contain any www. or https://, etc...)
+    if (newDomain == "" || newProb == ""){
+      $( "#save" ).removeClass( "onclic" );
+      alert("Did not save! Blank values are not allowed for domains or probabilities.");
+      return;
+    }
+
      domainList_new.push("*://*."+newDomain+"/*");
 
-     settigns_new[oTable.rows[i].cells[1].children[0].value] = [oTable.rows[i].cells[2].children[0].value,oTable.rows[i].cells[3].children[0].value];
-     //console.log(oTable.rows[i].cells[1].children[0].value);
-     //console.log(oTable.rows[i].cells[2].children[0].value);
-     //console.log(oTable.rows[i].cells[3].children[0].value);
+     settigns_new[oTable.rows[i].cells[1].children[0].value] = [oTable.rows[i].cells[2].children[0].value, newProb];
+
      
   }
   chrome.storage.sync.set({settings: settigns_new}, function() {
@@ -167,11 +177,11 @@ function saveSettings(){
  $("#insert-more").click(function () {
      $("#optionsTable").each(function () {
          var tds = '<tr class="new-row">';
-          tds += '<td><div class="delRow"><i class="fas fa-minus-circle"></i> <span class="delTag">&nbspDelete</span></div></td><td><input name="domainInput" type="text"></td><td><select name="UASdropdown"><option value="iOS">iOS</option><option value="Chrome">Chrome</option><option value="Safari">Safari</option><option value="Firefox">Firefox</option></select></td><td><input name="probInput" type="number" value="100" min="0" max="100"></input>%</td>'
+          tds += '<td><div class="delRow"><i class="fas fa-minus-circle"></i> <span class="delTag">&nbspDelete</span></div></td><td><input name="domainInput" class="domainInput" placeholder="google.com" type="text"></td><td><select name="UASdropdown"><option value="iOS">iOS</option><option value="Chrome">Chrome</option><option value="Safari">Safari</option><option value="Firefox">Firefox</option></select></td><td><input name="probInput" class="probInput" type="number" value="100" min="0" max="100"></input>%</td>'
         tds += '</tr>';
         if ($('tbody', this).length > 0) {
             $('tbody', this).append(tds).children(':last').hide()
-        .fadeIn(1000);
+        .fadeIn(500);
         } else {
             console.log("no table entries");
             $(this).append("<tr><th></th><th>Domain</th><th>User-Agent String</th><th>Probability</th></tr>");
@@ -181,12 +191,55 @@ function saveSettings(){
      unsaved = true;
 });
 
+//Entry constraints...
+function setupListeners() {
+    //Don't allow user to type http:// or www.
+    $(".domainInput").keydown(function(e) {
+      console.log("check1");
+        var oldvalue=$(this).val();
+        var field=this;
+        setTimeout(function () {
+            if(field.value.indexOf('http://') == 0) {
+                $(field).val(field.value.substring(7));
+                $(field).fadeTo(100, 0.3, function() { $(this).fadeTo(500, 1.0); });
+            }
+            if(field.value.indexOf('https://') == 0) {
+                $(field).val(field.value.substring(8));
+                $(field).fadeTo(100, 0.3, function() { $(this).fadeTo(500, 1.0); });
+            }
+            if(field.value.indexOf('www.') == 0){
+                $(field).val(field.value.substring(4));
+                $(field).fadeTo(100, 0.3, function() { $(this).fadeTo(500, 1.0); });
+            }
+        }, 1);
+    });
+    //Doesn't allow user to enter values outside of 0-100 or non number chars
+    $(".probInput").keydown(function(e) {
+        console.log("check2");
+
+        var oldvalue=$(this).val();
+        var field=this;
+        setTimeout(function () {
+            if(field.value > 100 || field.value < 0) {
+                $(field).val(oldvalue);
+                $(field).fadeTo(100, 0.3, function() { $(this).fadeTo(500, 1.0); });
+            }
+            if(isNaN(field.value)) {
+                $(field).val(oldvalue);
+                $(field).fadeTo(100, 0.3, function() { $(this).fadeTo(500, 1.0); });
+            }
+           
+        }, 1);
+    });
+}
 
 
 $("#optionsTable").on('click', '.delRow', function () {
     //$(this).closest('tr').remove();
 
     var badRow = $(this).closest('tr');
+    // confirms deletion unless domain is blank
+      if (badRow.find(".domainInput")[0].value != ""){
         if (confirm('Are you sure you want to delete this entry?')) {
           badRow.css("background-color","#FF3700");
           badRow.fadeOut(400, function(){
@@ -197,6 +250,16 @@ $("#optionsTable").on('click', '.delRow', function () {
         else {
           // do nothing
         }
+      }
+      //if domain blank, just delete the row
+      else{
+        badRow.css("background-color","#FF3700");
+        badRow.fadeOut(400, function(){
+        badRow.remove();
+        saveSettings();
+            }); 
+      }
+
             
         
 });
@@ -212,4 +275,5 @@ function unloadPage(){
 }
 
 window.onbeforeunload = unloadPage;
+
 

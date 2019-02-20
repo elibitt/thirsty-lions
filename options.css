@@ -3,17 +3,34 @@ body{
 	background: rgb(248, 249, 250);
 	font-family:sans-serif;
 }
+.container{
+	position: relative;
+	min-height: 100%;
+}
 .header{
-	height: 50px;
+	height: 55px;
 	background-color:#62A8D1;
 }
 
 .header-title{
 	color:white;
 	text-align:center;
-	padding-top:10px;
+	padding-top:15px;
 }
 
+.clear{
+	clear: both;
+    height: 100px;
+}
+.footer{
+	width: 100%;
+    text-align: center;
+    background-color: #62A8D1;
+    position: absolute;
+    margin-top: 20px;
+    color: #fff;
+    bottom: 0;
+}
 .panel{
 	width: 750px;
 	margin: auto;
@@ -22,6 +39,13 @@ body{
 	padding:20px;
 	box-shadow: rgba(60, 64, 67, .3) 0 1px 2px 0,
                   rgba(60, 64, 67, .15) 0 1px 3px 1px;
+}
+
+.description{
+	width: 750px;
+	margin: auto;
+	margin-top:10px;
+	padding:20px;
 }
 .tg{
 	border-collapse:collapse;
@@ -75,14 +99,26 @@ tr:hover {background-color: #ddd;}
 
 
 
-#save{
-	margin-top:20px;
+.add-row-button{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 50%;
+	float: left;
+	height: 50px;
+	text-align: right;
 }
 
+.save-button{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 50%;
+	float: right;
+	height: 50px;
+	text-align: left;
+}
 
-.add-row-button{
-	text-align: center;
-	margin: 10px;
+#status{
+	clear: both;
 }
 
 
@@ -155,6 +191,7 @@ button {
   font-weight:bold;
   cursor: pointer;
   transition: all 0.2s ease;
+  margin: 10px;
 }
 button:hover{
   
@@ -166,15 +203,18 @@ button:active{
     letter-spacing: 2px ;
   }
 
+input::placeholder{
+	color: #ccc;
+}
+
 .onclic {
   width: 40px;
-  margin-left:65px;
+  margin-left:85px;
   border-color:#bbb;
   border-width:5px;
   font-size:0;
   border-left-color:#1ECD97;
   animation: rotating .5s .18s linear infinite;
-
   &:after {
     content:"";
   }

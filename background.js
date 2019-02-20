@@ -3,8 +3,8 @@
 
 
 // Initial settings, set when extension is first downloaded
-var init_settings = {"google.com":['Firefox','100']};
-var init_domainList = ["*://*.google.com/*"];
+var init_settings = {"whatsmybrowser.org":['Firefox','100']};
+var init_domainList = ["*://*.whatsmybrowser.org/*"];
 
 
 var bgsettings = {}; 
