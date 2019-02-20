@@ -3,16 +3,27 @@
 	<title>Thirsty Lions Options Page</title>
 	<link rel="stylesheet" href="options.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="options.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
 </head>
-<body onLoad="buildHtmlTable('#optionsTable')">
+<body>
+<div class="container">
 
 <div class="header">
-	<h2 class="header-title">Anti-Fingerprinting Options</h2>
+	<h1 class="header-title">Anti-Fingerprinting Options</h1>
 </div>
+
+
+<div class="description">
+	<h2>About this Extension</h2>
+	<p>This extension was developed at Carnegie Mellon University and is based on research by Ryan Shi, Aaron Schlenker, Brian Hay, Aaron Ferber, and Fei Fang</p>
+	<h2>How to use</h2>
+	<p>Enter the domain of each website for which you'd like to change your user agent sting. You do not need to include "http://"" or "www.". You may enter subdomains ("support.google.com") or specific paths ("google.com/maps"), but do not add a trailing "/".</p>
+	<p>You can also choose your desired User Agent String for each domain as well as a probability for which that domain will be changed (percentage 0-100).</p>
+	
+</div>
+
 
 <div class="panel">
 	<h4>Enter Desired websites and select User Agent String</h4>
@@ -26,11 +37,19 @@
 	<div class="add-row-button">
 		<button id="insert-more"><i class="fas fa-plus-circle"></i> Add another entry</button>
 	</div>
+	<div class="save-button">
+		<button id="save" class="savebutton"><i class="fas fa-save"></i> Save</button>
+	</div>
 
 
 	
 	<div id="status"></div>
-	<button id="save"><i class="fas fa-save"></i> Save</button>
+	
+</div>
+<div class="clear"></div>
+<div class="footer">
+	<p>Copyright &copy; <span id='curyear' ></span> Carnegie Mellon University</p>
+</div>	
 </div>
 <script src="options.js"></script>
 </body>
