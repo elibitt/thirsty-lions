@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>Thirsty Lions Options Page</title>
-	<link rel="stylesheet" href="options.css">
+	<link rel="stylesheet" href="/style/options.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -24,6 +24,35 @@
 	
 </div>
 
+<div class="panel">
+	<h3>Current User Agent String:</h4>
+	<div class="code-block">
+		<span id="curUAS"></span>
+	</div>
+	<h3>New User Agent String:</h4>
+	<span>New Browser: </span>
+	<select name="browserDropdown" id="browserDropdown">
+		<option value="Chrome">Chrome</option>
+		<option value="Firefox" selected="selected">Firefox</option>
+	</select>
+	<span>   New OS: </span>
+	<select name="osDropdown" id="osDropdown">
+		<option value="win">Windows</option>
+		<option value="mac" selected="selected">Mac OS X</option>
+		<option value="linux">Linux</option>
+	</select>
+	<div class="code-block">
+		<span id="newUAS"></span>
+	</div>
+	<div class="save-button-g">
+		<button id="saveG" class="savebutton"><i class="fas fa-save"></i> Save</button>
+	</div>
+
+
+	
+	<div id="status"></div>
+	
+</div>
 
 <div class="panel">
 	<h4>Enter Desired websites and select User Agent String</h4>
@@ -51,6 +80,6 @@
 	<p>Copyright &copy; <span id='curyear' ></span> Carnegie Mellon University</p>
 </div>	
 </div>
-<script src="options.js"></script>
+<script src="/scripts/options.js"></script>
 </body>
 </html>

@@ -8,11 +8,20 @@
   "permissions": [
     "webRequest",
     "storage",
+    "tabs",
     "webRequestBlocking",
     "https://*/*",
     "http://*/*"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["/scripts/background.js"]
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "icons" :{
+    "128" : "/assets/thirsty-lion.png",
+    "48" : "/assets/thirsty-lion.png",
+    "16" : "/assets/thirsty-lion.png"
   }
 }
