@@ -5,9 +5,6 @@ var domainList = [];
 var setUAS = {};
 
 
-
-
-
 chrome.storage.sync.get('settings', function(result) {
     // check if data exists.
     if (result) {
@@ -16,12 +13,28 @@ chrome.storage.sync.get('settings', function(result) {
         chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 			var rootDomain = extractRootDomain(tabs[0].url);
 			if (rootDomain in settings){
+                // if extension active on this domain...
 				if (settings[rootDomain][0]){
-					document.getElementById('message').textContent = "UAS has been changed!";
-					document.getElementById("popupbg").classList.add('container-green');
-					document.getElementById("popupbg").classList.remove('container');
+					document.getElementById('extension-popup-message').textContent = "UAS has been changed!";
+					document.getElementById("extension-popup-popupbg").classList.add('extension-popup-container-green');
+					document.getElementById("extension-popup-popupbg").classList.remove('extension-popup-container');
+                    document.getElementById("extension-popup-power-button").style.color = "green";
+                    document.getElementsByClassName('extension-popup-degradation-options')[0].style.display = 'block';
+
 				}
+                else{
+                    document.getElementById('extension-popup-uas-extension-newUAS').textContent = "";
+                    document.getElementsByClassName('extension-popup-degradation-options')[0].style.display = 'none';
+                    document.getElementsByClassName('extension-popup-container')[0].style.width = "300px";
+
+                }
 			}
+            else{
+                document.getElementById('extension-popup-uas-extension-newUAS').textContent = "";
+                document.getElementsByClassName('extension-popup-degradation-options')[0].style.display = 'none';
+                document.getElementsByClassName('extension-popup-container')[0].style.width = "300px";
+
+            }
 		});
     } else {
         console.log("No settings data found");
@@ -41,13 +54,16 @@ chrome.storage.sync.get('setUAS', function(result) {
     if (result) {
         setUAS = result['setUAS'];
         console.log("Found setUAS data");
-    } 
-    else {
-        console.log("No UAS data found");
+        var ddBrowser = document.getElementById("extension-popup-browserDropdown");
+        var ddOS = document.getElementById("extension-popup-osDropdown");
+        var newOS = setUAS['os'] == 'win' ? 'Windows' : setUAS['os'] == 'mac' ? 'Mac OS X' : 'Linux';
+        document.getElementById('extension-popup-uas-extension-newUAS').textContent = newOS + " on " + setUAS['browser']; 
+    } else {
+        console.log("No settings data found");
     }
   });
 
-$("#settings-button").click(function () {
+$("#extension-popup-settings-button").click(function () {
 	chrome.tabs.create({'url': "../options.html" } )
 });
 
@@ -91,4 +107,59 @@ function extractRootDomain(url) {
         }
     }
     return domain;
+}
+
+//Handle degradation buttons
+var noButton = document.getElementById("extension-popup-no-button");
+var bitButton = document.getElementById("extension-popup-bit-button");
+var lotButton = document.getElementById("extension-popup-lot-button");
+
+noButton.onclick = function(){
+    noButton.style.background = "green";
+    noButton.style.color = "white";
+    bitButton.style.background = "#eee";
+    bitButton.style.color = "#000";
+    lotButton.style.background = "#eee";
+    lotButton.style.color = "#000";
+    selectText('extension-popup-target-text');
+    noButton.blur();
+    document.getElementById("extension-popup-target-text").textContent = "Great! Thanks for your feedback.";
+}
+bitButton.onclick = function(){
+    bitButton.style.background = "orange";
+    bitButton.style.color = "white";
+    noButton.style.background = "#eee";
+    noButton.style.color = "#000";
+    lotButton.style.background = "#eee";
+    lotButton.style.color = "#000";
+    selectText('extension-popup-target-text');
+    bitButton.blur();
+    document.getElementById("extension-popup-target-text").textContent = "Got it, click above to disable extension on this site.";
+
+}
+lotButton.onclick = function(){
+    lotButton.style.background = "lightcoral";
+    lotButton.style.color = "white";
+    noButton.style.background = "#eee";
+    noButton.style.color = "#000";
+    bitButton.style.background = "#eee";
+    bitButton.style.color = "#000";
+    selectText('extension-popup-target-text');
+    lotButton.blur();
+    document.getElementById("extension-popup-target-text").textContent = "Okay, we've disabled the extension on this website.";
+
+}
+
+function selectText(node) {
+    node = document.getElementById(node);
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
+function deselectText() {
+    const selection = window.getSelection();
+    selection.removeAllRanges();
 }
