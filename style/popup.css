@@ -3,6 +3,7 @@ body{
 	margin:0;
 	background: rgb(248, 249, 250);
 	font-family:sans-serif;
+  min-height: 250px;
 }
 .extension-popup-container{
   height:100%;
@@ -91,6 +92,11 @@ body{
 #extension-popup-power-button:hover{
   text-shadow: #999 0px 0px 5px;
   cursor: pointer;
+}
+
+#extension-popup-refresh-button{
+      margin: auto;
+    font-size: 14px;
 }
 
 .extension-popup-btn-group {

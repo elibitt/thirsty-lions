@@ -14,15 +14,18 @@
 	<div class="extension-popup-header">
 		<h4 class="extension-popup-header-title">Anti-Fingerprinting Extension</h4>
 	</div>
-	<div class='extension-popup-body' >
+	<div class='extension-popup-body'>
 		<div class="extension-popup-power-button-container">
-			<i id="extension-popup-power-button" class="fas fa-power-off"></i>
+			<i title="Click to disable extension on this domain" id="extension-popup-power-button" class="fas fa-power-off"></i>
 		</div>
-		<div class="extension-popup-message-container">
+		<div class="extension-popup-message-container" id="msg-container-ext">
 			<span id="extension-popup-message">Extension is not active on this domain</span>
 			<div class="extension-popup-code-block">
 				<span id="extension-popup-uas-extension-newUAS"></span>
 			</div>
+		</div>
+		<div id="extension-popup-refresh-container">
+			<button id='extension-popup-refresh-button'>Refresh Page</button>
 		</div>
 		<div class="extension-popup-degradation-options">
 			<span class="extension-popup-degradation-text" id="extension-popup-target-text">Was this webpage affected by changing the UAS?</span>

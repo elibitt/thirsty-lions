@@ -8,10 +8,15 @@ var unsaved = false;
 var doneParsing = false;
 var topSitesData = [];
 
+var API_IP_ADDRESS = "54.211.13.12";
+
 var DEFAULT_DEFENDER_BUDGET = 200;
-var MIN_COST_TO_ATTACK = 1;
-var MAX_COST_TO_ATTACK = 500;
+
+var MIN_COST_TO_ATTACK = 30;
+var MAX_COST_TO_ATTACK = 55;
+
 var DEFAULT_SITE_RANK = 1000000;
+var DEFAULT_COST_TO_ALTER = 1;
 
 const UASlist = {
     
@@ -441,7 +446,9 @@ function estimateCost(rank){
   // calculate adjustment factor
   var scale = (maxv-minv) / (maxp-minp);
 
-  return Math.exp(minv + scale*(rank-minp));
+  return ( 10 - ( (rank/1000000)*8 ) );
+
+  //return Math.exp(minv + scale*(rank-minp));
 }
 
 
@@ -450,10 +457,11 @@ function estimateCost(rank){
 
 $("#calculate").on("click", function(e) {
   e.preventDefault();
-  if(unsaved){
-    window.alert("Please save your changes first.");
-    return;
-  }
+  saveSettings();
+  // if(unsaved){
+  //   window.alert("Please save your changes first.");
+  //   return;
+  // }
   //Open Modal
   $("#loadMe").modal({
       backdrop: "static", //remove ability to close modal with click
@@ -511,23 +519,27 @@ $("#calculate").on("click", function(e) {
                     curRisk[key] = 0;
                   }
                 
+                //chrome.storage.sync.get('cost', function(result) {
+                  var curCost = result['cost'];
                 
-                reqDict["websites"].push(
-                  {
-                    "name": key,
-                    "costToAttack": estimateCost(siteRank),
-                    "costToAlter": curRisk[key],
-                    "orgtraffic": settings[key][2]
-                  }
-                );
+                  reqDict["websites"].push(
+                    {
+                      "name": key,
+                      "costToAttack": estimateCost(siteRank),
+                      "costToAlter": 1,//curCost[key] ? curCost[key] : DEFAULT_COST_TO_ALTER,
+                      "orgtraffic": settings[key][2]*10
+                    }
+                  );
+                
               }); //end domain iteration
               //Sync new risk values
               chrome.storage.sync.set({risk: curRisk}, function() {
                     console.log("Risks updated");
               });
             
-              var reqURL = "http://3.94.247.225/se?uas="+encodeURI(JSON.stringify(reqDict));
-              console.log(reqURL);
+              var reqURL = "http://"+API_IP_ADDRESS+"/se?uas="+encodeURI(JSON.stringify(reqDict));
+
+              console.log(reqDict);
 
               $.get(
                 reqURL,
@@ -544,8 +556,6 @@ $("#calculate").on("click", function(e) {
                         var tempSetting = settings[retDomain];
                         var newSetting = [tempSetting[0],(parseFloat(domainDict[retDomain])*100).toFixed(1),tempSetting[2]];
                         settings[retDomain] = newSetting;
-
-                        console.log(newSetting);
                       }
 
                     });
@@ -565,14 +575,14 @@ $("#calculate").on("click", function(e) {
 
                     
                   } else {
-                    console.log("didnt work :(");
+                    console.log("ERROR: Couldn't connect to API server!");
                     
                     $("#loadMe").modal("hide");
                   }
                 },
                 "text"
               );
-
+              //}); //end get cost
             }); //end risk callback
 
         } else {
