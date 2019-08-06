@@ -190,7 +190,7 @@ bitButton.onclick = function(){
     lotButton.style.color = "#000";
     selectText('extension-popup-target-text');
     bitButton.blur();
-    document.getElementById("extension-popup-target-text").textContent = "Got it, click above to disable extension on this site.";
+    document.getElementById("extension-popup-target-text").textContent = "Got it, you can disable the extension on this site by clicking above.";
 
     //send to server
     var reqDict = {"websites":[]};
@@ -235,7 +235,7 @@ lotButton.onclick = function(){
     bitButton.style.color = "#000";
     selectText('extension-popup-target-text');
     lotButton.blur();
-    document.getElementById("extension-popup-target-text").textContent = "Okay, we've disabled the extension on this website.";
+    document.getElementById("extension-popup-target-text").textContent = "Okay, click above to disable extension on this site.";
 
     //send to server
     var reqDict = {"websites":[]};
