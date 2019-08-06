@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Thirsty Lions Options Page</title>
+	<title>CyberTWEAK Options Page</title>
 	<link rel="stylesheet" href="/style/options.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
@@ -13,16 +13,20 @@
 <div class="container">
 
 <div class="header">
-	<h1 class="header-title">Anti-Fingerprinting Options</h1>
+	<h1 class="header-title">cyberTWEAK Options</h1>
 </div>
 
-
+<div class="top-logo"><img src="/assets/cyberTweakLogo.png" id="top-logo-img"/></div>
 <div class="description">
 	<h2>About this Extension</h2>
 	<p>This extension was developed at Carnegie Mellon University and is based on research by Ryan Shi, Aaron Schlenker, Brian Hay, Aaron Ferber, and Fei Fang</p>
+	<p>This extension is intended to thwart social engineering attacks by spoofing the user agent string that your browser sends with each website request. The user agent string contains info such as your browser version and operating system, spoofing it can conceal your identity and mislead potential attackers.</p>
 	<h2>How to use</h2>
 	<p>Enter the domain of each website for which you'd like to change your user agent sting. You do not need to include "http://"" or "www.". You may enter subdomains ("support.google.com") or specific paths ("google.com/maps"), but do not add a trailing "/".</p>
-	<p>You can also choose your desired User Agent String for each domain as well as a probability for which that domain will be changed (percentage 0-100).</p>
+	<p>You can choose your desired User Agent String below as well as a probabilities for which each domain will be changed (percentage 0-100). After setting your estimated visits/week for each website, you can run the algorithm which will set the percentages for each website and estimate each website's risk.</p>
+	<h2>Feedback</h2>
+	<p>We are working to make this extension better, please let us know if you have any feedback using the anonymous link below. Thanks!</p>
+	<a href="https://docs.google.com/forms/d/e/1FAIpQLScmR3GpBtRNT3VO1odvTY1eGrKazLVW4iRA13GiWr6aFxlvfw/viewform?usp=sf_link" target="_blank"><button id="extension-feedback-button" >Submit Feedback</button></a>
 	
 </div>
 
@@ -50,7 +54,7 @@
 	<div class="advancedOptions" >
 		<div>
 		<h4>Advanced: Set defender budget</h4>
-		<p>As altering the user-agent string can degrade the webpage rendered, you can enter a budget for total degradation due to traffic alteration. Enter a number 0-1000, the default is 200.</p>
+		<p>As altering the user-agent string can degrade the webpage rendered, you can enter a budget for total degradation due to traffic alteration. Enter a number 0-1000, the default is 500.</p>
 
 		<input type="number" min="0" max="1000" value="200" style="width: 120px;" placeholder="Enter budget" id="budgetEntry" name="budget" />
 		</div>
@@ -98,6 +102,7 @@
 </div>
 
 <!-- Modal -->
+
 <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">

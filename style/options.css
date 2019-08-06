@@ -152,6 +152,28 @@ tr:hover {background-color: #ddd;}
 	clear: both;
 }
 
+#extension-feedback-button{
+	outline: none;
+    height: 20px;
+    text-align: center;
+    width: 170px;
+    border-radius: 40px;
+    background: #fff;
+    border: 1px solid rgb(216, 216, 216) ;
+    color: #000;
+    letter-spacing: 1px;
+    text-shadow: 0;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 10px 0px;
+}
+
+#extension-feedback-button:hover{
+	background: #ccc;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -282,7 +304,13 @@ input:checked + .slider:before {
 		color:white !important;
 	}
 
+#top-logo-img{
+	margin: auto;
+	margin-top: 10px;
+	display: block;
+	width: 100px;
 
+}
 
 button {
   outline:none;

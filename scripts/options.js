@@ -10,7 +10,7 @@ var topSitesData = [];
 
 var API_IP_ADDRESS = "54.211.13.12";
 
-var DEFAULT_DEFENDER_BUDGET = 200;
+var DEFAULT_DEFENDER_BUDGET = 500;
 
 var MIN_COST_TO_ATTACK = 30;
 var MAX_COST_TO_ATTACK = 55;
@@ -152,16 +152,16 @@ chrome.storage.sync.get('risk', function(result) {
 
     //Add Risk Column
     if (foundRisk[domain] == 2){
-      newRow["Risk"] = "<span class='risk-label' style='color:red'>High</span>";
+      newRow["Risk"] = "<span class='risk-label' style='color:red' title='Estimated risk'>High</span>";
     }
     else if (foundRisk[domain] == 1){
-      newRow["Risk"] = "<span class='risk-label' style='color:orange'>Med</span>";
+      newRow["Risk"] = "<span class='risk-label' style='color:orange' title='Estimated risk'>Med</span>";
     }
     else if (foundRisk[domain] == 0){
-      newRow["Risk"] = "<span class='risk-label' style='color:green'>Low</span>";
+      newRow["Risk"] = "<span class='risk-label' style='color:green' title='Estimated risk'>Low</span>";
     }
     else{
-      newRow["Risk"] = '<i class="fas fa-question-circle"></i>';
+      newRow["Risk"] = '<i class="fas fa-question-circle" title="Run the Algorithm to estimate risk"></i>';
     }
 
     tableData.push(newRow);
@@ -313,7 +313,7 @@ function saveSettings(){
           +'<td><input name="domainInput" class="domainInput" placeholder="example.com" type="text"></td>'
           +'<td><input name="visitsInput" class="visitsInput" type="number" value="10" min="0" max="1000" alt="hi!"></td>'
           +'<td><input name="probInput" class="probInput" type="number" value="100" min="0" max="100"></input>%</td>'
-          +'<td><i class="fas fa-question-circle"></i></td>';
+          +'<td><i class="fas fa-question-circle" title="Run the algorithm to estimate risk"></i></td>';
         tds += '</tr>';
         if ($('tbody', this).length > 0) {
             $('tbody', this).append(tds).children(':last').hide()
@@ -451,8 +451,6 @@ function estimateCost(rank){
   //return Math.exp(minv + scale*(rank-minp));
 }
 
-
-
 // function runAlgorithm(){
 
 $("#calculate").on("click", function(e) {
@@ -501,8 +499,10 @@ $("#calculate").on("click", function(e) {
         if (result) {
             settings = result['settings'];
             var curRisk = {};
-            chrome.storage.sync.get('risk', function(result) {
+            var curCost = {};
+            chrome.storage.sync.get(['risk','cost'], function(result) {
               curRisk = result['risk'];
+              curCost = result['cost'];
               Object.keys(settings).forEach(function(key) {
                 //Check risk
                 siteRank = checkWebsite(key);
@@ -520,13 +520,13 @@ $("#calculate").on("click", function(e) {
                   }
                 
                 //chrome.storage.sync.get('cost', function(result) {
-                  var curCost = result['cost'];
+                  //var curCost = result['cost'];
                 
                   reqDict["websites"].push(
                     {
                       "name": key,
                       "costToAttack": estimateCost(siteRank),
-                      "costToAlter": 1,//curCost[key] ? curCost[key] : DEFAULT_COST_TO_ALTER,
+                      "costToAlter": curCost[key] ? curCost[key] : DEFAULT_COST_TO_ALTER,
                       "orgtraffic": settings[key][2]*10
                     }
                   );

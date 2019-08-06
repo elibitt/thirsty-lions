@@ -1,6 +1,6 @@
 {
-  "name": "Change User Agent String",
-  "description": "Change user agent string of a hard-coded list of websites into a hard-coded alternative",
+  "name": "cyberTWEAK",
+  "description": "Mitigate risk of social engineering waterhole attacks by changing user agent string",
   "version": "1.0",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
@@ -23,8 +23,8 @@
     "default_popup": "popup.html"
   },
   "icons" :{
-    "128" : "/assets/thirsty-lion.png",
-    "48" : "/assets/thirsty-lion.png",
-    "16" : "/assets/thirsty-lion.png"
+    "128" : "/assets/cyberTweakLogo.png",
+    "48" : "/assets/cyberTweakLogo.png",
+    "16" : "/assets/cyberTweakLogo.png"
   }
 }
