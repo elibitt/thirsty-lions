@@ -3,9 +3,12 @@
 
 
 // Initial settings, set when extension is first downloaded
-var init_settings = {"whatsmybrowser.org":[true,'100']};
+var init_settings = {"whatsmybrowser.org":[true,'100','10']};
 var init_domainList = ["*://*.whatsmybrowser.org/*"];
 var init_UAS = {"os": 'mac', "browser":'Chrome'};
+
+var init_risk = {};
+var init_cost = {};
 
 
 var bgsettings = {}; 
@@ -109,6 +112,12 @@ chrome.runtime.onInstalled.addListener(function() {
     });
     chrome.storage.sync.set({settings: init_settings}, function() {
       console.log("Settings data initialized");
+    });
+    chrome.storage.sync.set({risk: init_risk}, function() {
+      console.log("Risk storage initialized");
+    });
+    chrome.storage.sync.set({cost: init_cost}, function() {
+      console.log("Degradation cost storage initialized");
     });
     chrome.storage.sync.set({domainList: init_domainList}, function() {
       console.log("Domain list data initialized");

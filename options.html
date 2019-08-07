@@ -1,8 +1,10 @@
 <html>
 <head>
-	<title>Thirsty Lions Options Page</title>
+	<title>CyberTWEAK Options Page</title>
 	<link rel="stylesheet" href="/style/options.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script type='text/javascript' src="/scripts/papaparse.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
@@ -11,16 +13,18 @@
 <div class="container">
 
 <div class="header">
-	<h1 class="header-title">Anti-Fingerprinting Options</h1>
+	<h1 class="header-title">cyberTWEAK Options</h1>
 </div>
 
-
+<div class="top-logo"><img src="/assets/cyberTweakLogo.png" id="top-logo-img"/></div>
 <div class="description">
-	<h2>About this Extension</h2>
-	<p>This extension was developed at Carnegie Mellon University and is based on research by Ryan Shi, Aaron Schlenker, Brian Hay, Aaron Ferber, and Fei Fang</p>
+	<p>This extension is intended to thwart social engineering attacks by spoofing the user agent string that your browser sends with each website request. The user agent string contains info such as your browser version and operating system, spoofing it can conceal your identity and mislead potential attackers.</p>
 	<h2>How to use</h2>
 	<p>Enter the domain of each website for which you'd like to change your user agent sting. You do not need to include "http://"" or "www.". You may enter subdomains ("support.google.com") or specific paths ("google.com/maps"), but do not add a trailing "/".</p>
-	<p>You can also choose your desired User Agent String for each domain as well as a probability for which that domain will be changed (percentage 0-100).</p>
+	<p>You can choose your desired User Agent String below as well as a probabilities for which each domain will be changed (percentage 0-100). After setting your estimated visits/week for each website, you can run the algorithm which will set the percentages for each website and estimate each website's risk.</p>
+	<h2>Feedback</h2>
+	<p>We are working to make this extension better, please let us know if you have any feedback using the anonymous link below. Thanks!</p>
+	<a href="https://docs.google.com/forms/d/e/1FAIpQLScmR3GpBtRNT3VO1odvTY1eGrKazLVW4iRA13GiWr6aFxlvfw/viewform?usp=sf_link" target="_blank"><button id="extension-feedback-button" >Submit Feedback</button></a>
 	
 </div>
 
@@ -44,6 +48,15 @@
 	<div class="code-block">
 		<span id="newUAS"></span>
 	</div>
+	<button class="advancedCollapse"><span id="advOptionsLabel">Advanced Options</span></button>
+	<div class="advancedOptions" >
+		<div>
+		<h4>Advanced: Set defender budget</h4>
+		<p>As altering the user-agent string can degrade the webpage rendered, you can enter a budget for total degradation due to traffic alteration. Enter a number 0-1000, the default is 500.</p>
+
+		<input type="number" min="0" max="1000" value="200" style="width: 120px;" placeholder="Enter budget" id="budgetEntry" name="budget" />
+		</div>
+	</div>
 	<div class="save-button-g">
 		<button id="saveG" class="savebutton"><i class="fas fa-save"></i> Save</button>
 	</div>
@@ -66,20 +79,45 @@
 	<div class="add-row-button">
 		<button id="insert-more"><i class="fas fa-plus-circle"></i> Add another entry</button>
 	</div>
+	<div class="calculate-button tooltip">
+		<button id="calculate" class="calcbutton"><i class="fas fa-calculator"></i> Run Algorithm</button>
+		<span class="tooltip-text">This will set all probabilities for you. Make sure you input reasonable estimates for visits/week before running the algorithm.</span>
+	</div>
 	<div class="save-button">
 		<button id="save" class="savebutton"><i class="fas fa-save"></i> Save</button>
 	</div>
+	
 
 
 	
 	<div id="status"></div>
 	
 </div>
+<div class="panel">
+	<h2>About this Extension</h2>
+	<p>This extension was developed at Carnegie Mellon University and is based on research by AISOC Labs.</p>
+</div>
 <div class="clear"></div>
 <div class="footer">
 	<p>Copyright &copy; <span id='curyear' ></span> Carnegie Mellon University</p>
-</div>	
 </div>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <div class="loader"></div>
+        <div clas="loader-txt">
+          <p>This should only take a few seconds... <br><br><small>Please do not close this window</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="/scripts/options.js"></script>
 </body>
 </html>

@@ -1,66 +1,61 @@
+@charset "UTF-8";
 body{
 	margin:0;
 	background: rgb(248, 249, 250);
 	font-family:sans-serif;
+  min-height: 250px;
 }
-.container{
-	position: relative;
-	min-height: 150px;
-	min-width: 300px;
+.extension-popup-container{
+  height:100%;
 	background: lightcoral;
 }
-.container-green{
-	position: relative;
-	min-height: 150px;
-	min-width: 300px;
+.extension-popup-container-green{
+  height: 100%;
 	background: lightgreen;
 }
-.header{
-	height: 30px;
+.extension-popup-header{
 	background-color:#62A8D1;
 }
 
-.header-title{
+.extension-popup-header-title{
 	color:white;
 	text-align:center;
 	padding-top:8px;
+  padding-bottom: 8px;
 }
 
-.clear{
-	clear: both;
-    height: 100px;
-}
 
-.message-container{
-	padding:10px;
+
+.extension-popup-message-container{
+	padding: 0px 10px 10px 10px;
 	text-align: center;
 
 }
 
 
-#message{
+#extension-popup-message{
 	font-size: 16px;
 }
 
-.popup-footer{
+.extension-popup-footer{
 	width: 100%;
-    text-align: center;
-    position: absolute;
-    margin-top: 20px;
-    color: #fff;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;	
+  height: 35px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;	
+  background: #eee;
+  position: absolute;
+  bottom: 0px;
+}
+.extension-popup-footer:hover{
+  background: #ccc;
 }
 
-button {
+#extension-popup-settings-button{
   outline:none;
   text-align: center;
-  border-radius:40px;
-  background: #fff;
-  border: 2px solid #1ECD97;
-  color:#1ECD97;
+  float: left;
   letter-spacing:1px;
   text-shadow:0;
   font-size: 12px;
@@ -68,20 +63,69 @@ button {
   cursor: pointer;
   transition: all 0.2s ease;
   margin: auto;
+  padding: 0;
+  border: none;
+  background: none;
 }
-button:hover{
-  
-    color:white;
-    background: #1ECD97;
+
+#extension-popup-settings-button:hover{
+  color:green;
+  background: #ccc;
+  border-radius: 5px;
 }
-button:active{
-    //letter-spacing: 2px;
-    letter-spacing: 2px ;
-  }
-#settings-button{
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 130px;
-	float: left;
-	height: 40px;
+.extension-popup-degradation-options{
+  text-align: center;
+  padding: 10px;
+  z-index: 80000;
+  display: none;
+}
+
+.extension-popup-power-button-container{
+  text-align: center;
+}
+#extension-popup-power-button{
+  font-size: 55px;
+  margin: 10 auto;
+  color: #aaa;
+  text-shadow: #ddd 0px 0px 3px;
+}
+
+#extension-popup-power-button:hover{
+  text-shadow: #999 0px 0px 5px;
+  cursor: pointer;
+}
+
+#extension-popup-refresh-button{
+      margin: auto;
+    font-size: 14px;
+}
+
+.extension-popup-btn-group {
+  text-align: center;
+  margin: 10 auto;
+  width: 300px;
+}
+.extension-popup-btn-group button {
+  background-color: #eee; /* Green background */
+  border: 1px solid #ccc; /* Green border */
+  color: #222; /* White text */
+  padding: 5px 12px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+.extension-popup-btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.extension-popup-btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.extension-popup-btn-group button:hover {
+  background-color: #888;
 }

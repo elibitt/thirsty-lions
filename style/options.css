@@ -44,7 +44,6 @@ body{
 .description{
 	width: 750px;
 	margin: auto;
-	margin-top:10px;
 	padding:20px;
 }
 
@@ -118,7 +117,7 @@ tr:hover {background-color: #ddd;}
 .add-row-button{
 	margin-top: 10px;
 	margin-bottom: 10px;
-	width: 50%;
+	width: 33.33%;
 	float: left;
 	height: 50px;
 	text-align: right;
@@ -127,10 +126,18 @@ tr:hover {background-color: #ddd;}
 .save-button{
 	margin-top: 10px;
 	margin-bottom: 10px;
-	width: 50%;
-	float: right;
+	width: 33.33%;
+	float: left;
 	height: 50px;
 	text-align: left;
+}
+.calculate-button{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 33.33%;
+	float: left;
+	height: 50px;
+	text-align: center;
 }
 .save-button-g{
 	margin-top: 10px;
@@ -142,6 +149,28 @@ tr:hover {background-color: #ddd;}
 
 #status{
 	clear: both;
+}
+
+#extension-feedback-button{
+	outline: none;
+    height: 20px;
+    text-align: center;
+    width: 170px;
+    border-radius: 40px;
+    background: #fff;
+    border: 1px solid rgb(216, 216, 216) ;
+    color: #000;
+    letter-spacing: 1px;
+    text-shadow: 0;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 10px 0px;
+}
+
+#extension-feedback-button:hover{
+	background: #ccc;
 }
 
 /* The switch - the box around the slider */
@@ -196,6 +225,10 @@ input:checked + .slider:before {
   -webkit-transform: translateX(13px);
   -ms-transform: translateX(13px);
   transform: translateX(13px);
+}
+
+.probInput, .visitsInput{
+	width: 47px;
 }
 
 /* Rounded sliders */
@@ -259,7 +292,24 @@ input:checked + .slider:before {
 		color:white !important;
 	}
 
+#calculate{
+	color: #888 !important;
+	border: 2px solid #888;
 
+
+}
+#calculate:hover{
+		background:#888;
+		color:white !important;
+	}
+
+#top-logo-img{
+	margin: auto;
+	margin-top: 10px;
+	display: block;
+	width: 100px;
+
+}
 
 button {
   outline:none;
@@ -284,12 +334,91 @@ button:hover{
     background: #1ECD97;
 }
 button:active{
-    //letter-spacing: 2px;
-    letter-spacing: 2px ;
+
   }
 
 input::placeholder{
 	color: #ccc;
+}
+
+.advancedCollapse {
+  cursor: pointer;
+  color: #333;
+  border: none;
+  text-align: left;
+  outline: none;
+  margin-left: 0px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .advancedCollapse:hover {
+  background-color: none;
+}
+
+.advancedCollapse:before {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: left;
+  margin-left: 5px;
+}
+
+#advOptionsLabel{
+	position: relative;
+	left: 2px;
+	top: 4px;
+}
+.active:before {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.advancedOptions {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+#budgetEntry{
+	margin-bottom: 4px;
+}
+
+.tooltip{
+	position: relative;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  bottom: 100%;
+  left: 50%; 
+  margin-left: -85px;
+
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip-text:after {
+  	content: " ";
+  	position: absolute;
+  	right: 75px;
+	bottom: -8px;
+	border-top: 8px solid #555;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+  	border-bottom: none;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltip-text{
+  visibility: visible;
 }
 
 .onclic {
@@ -328,4 +457,234 @@ input::placeholder{
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/** SPINNER CREATION **/
+
+.loader {
+  position: relative;
+  text-align: center;
+  margin: 15px auto 35px auto;
+  z-index: 9999;
+  display: block;
+  width: 80px;
+  height: 80px;
+  border: 10px solid rgba(0, 0, 0, .3);
+  border-radius: 50%;
+  border-top-color: #000;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+
+/** MODAL STYLING **/
+
+.modal-content {
+  border-radius: 0px;
+  box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+}
+
+.loader-txt {
+  p {
+    font-size: 13px;
+    color: #666;
+    small {
+      font-size: 11.5px;
+      color: #999;
+    }
+  }
+}
+
+.modal-open {
+    overflow: hidden
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out, -webkit-transform .3s ease-out, -o-transform .3s ease-out;
+    -webkit-transform: translate(0, -25%);
+    -o-transform: translate(0, -25%);
+    transform: translate(0, -25%)
+}
+
+.modal.show .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0)
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px
+}
+
+.modal-content {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000
+}
+
+.modal-backdrop.fade {
+    opacity: 0
+}
+
+.modal-backdrop.show {
+    opacity: .5
+}
+
+.modal-header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eceeef
+}
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5
+}
+
+.modal-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 15px
+}
+
+.modal-footer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 15px;
+    border-top: 1px solid #eceeef
+}
+
+.modal-footer>:not(:first-child) {
+    margin-left: .25rem
+}
+
+.modal-footer>:not(:last-child) {
+    margin-right: .25rem
+}
+
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll
+}
+
+@media (min-width:576px) {
+    .modal-dialog {
+        max-width: 500px;
+        margin: 30px auto
+    }
+
+    .modal-sm {
+        max-width: 300px
+    }
+}
+
+@media (min-width:992px) {
+    .modal-lg {
+        max-width: 800px
+    }
+}
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear
+}
+
+.fade.show {
+    opacity: 1
+}
+
+.text-center {
+    text-align: center !important
 }
